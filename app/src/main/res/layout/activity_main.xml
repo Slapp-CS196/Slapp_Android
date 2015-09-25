@@ -5,7 +5,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView android:text="longitude" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/longitude"/>
+    <TextView
+        android:text="latitude"
+        android:layout_marginTop="0.8in"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/latitude"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="altitude"
+        android:layout_marginTop="1.6in"
+        android:id="@+id/altitude"/>
+    <TextView
+        android:text="accuracy"
+        android:layout_marginTop="2.4in"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/accuracy"/>
+    <TextView
+        android:text="time"
+        android:layout_marginTop="0.8in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1in"
+        android:id="@+id/time"
+        />
+    <TextView
+        android:text="date"
+        android:layout_marginTop="0in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1in"
+        android:id="@+id/date"
+        />
 
 </RelativeLayout>
