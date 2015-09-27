@@ -97,7 +97,7 @@ public class GestureTestActivity extends AppCompatActivity implements SensorEven
         tv_gestureTest_display5.setText("Ymax: " + y);
         tv_gestureTest_display6.setText("Zmax: " + z);
 
-        if (Math.abs(z) > 10.0) {
+        if (Math.abs(z) > 9.0) {
             if (!slapActive) {
                 slaps++;
                 slapActive = true;
