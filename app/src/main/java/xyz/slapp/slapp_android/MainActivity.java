@@ -5,16 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    @Override
+ static TextView slapBox;
+    public static void getSlapCount(int slaps){
+        slapBox.setText("slaps: " + slaps);
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent i = new Intent(MainActivity.this, GestureTestActivity.class);
-        startActivity(i);
+        Intent i = new Intent(MainActivity.this, BackGroundRun.class);
+        startService(i);
+        slapBox = (TextView)findViewById(R.id.slaps);
+        slapBox.setText("slaps" + BackGroundRun.numberOfSlaps());
     }
 
     @Override
@@ -38,4 +42,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

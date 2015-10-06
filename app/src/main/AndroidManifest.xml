@@ -20,6 +20,12 @@
             android:name=".GestureTestActivity"
             android:label="@string/title_activity_gesture_test" >
         </activity>
+        <service
+            android:name=".BackGroundRun"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
     </application>
 
 </manifest>

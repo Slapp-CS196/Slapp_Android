@@ -31,7 +31,7 @@ public class GestureTestActivity extends AppCompatActivity implements SensorEven
     float x = 0;
     float y = 0;
     float z = 0;
-    int slaps = 0;
+    public static int slaps = 0;
     boolean slapActive = false;
 
     @Override
