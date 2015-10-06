@@ -13,14 +13,19 @@ package xyz.slapp.slapp_android;
         import com.google.android.gms.common.ConnectionResult;
         import com.google.android.gms.common.api.GoogleApiClient;
         import com.google.android.gms.location.LocationServices;
+
+        import java.text.DateFormat;
+        import java.text.SimpleDateFormat;
         import java.util.Calendar;
+        import java.util.Date;
         import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     GoogleApiClient googleClient;
     TextView longitude, latitude, accuracy, altitude, time, date;
     Location currentPosition;
-    int milliseconds, seconds, minutes, hours, day, month, year;
+    Date currentDate;
+    SimpleDateFormat timeFormat, dateFormat;
 
     //API gets build
     protected synchronized void googleApiBuilder() {
@@ -77,21 +82,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         time = (TextView)findViewById(R.id.time);
         date = (TextView)findViewById(R.id.date);
 
+        //Set date/time formats and zones
+        timeFormat = new SimpleDateFormat("HH:mm:ss.SSSZ");
+        timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
         //Set up the connection to google API
         googleApiBuilder();
-        Calendar currentTime = Calendar.getInstance();
 
-        //Time set to GMT to get rid of possible confusions due to time zone
-        currentTime.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
-
-        //Getting Time Data to be send to database
-        milliseconds = currentTime.get(Calendar.MILLISECOND);
-        seconds = currentTime.get(Calendar.SECOND);
-        minutes = currentTime.get(Calendar.MINUTE);
-        hours = currentTime.get(Calendar.HOUR_OF_DAY);
-        day = currentTime.get(Calendar.DATE);
-        month = currentTime.get(Calendar.MONTH);
-        year = currentTime.get(Calendar.YEAR);
+        //Store current date & time
+        currentDate = new Date();
 
         //Getting last known location
         googleClient.connect();
@@ -125,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             latitude.setText(String.valueOf(currentPosition.getLatitude()));
             accuracy.setText(String.valueOf(currentPosition.getAccuracy()));
             altitude.setText(String.valueOf(currentPosition.getAltitude()));
-            time.setText(hours + ":" + minutes + ":" + seconds + ":" + milliseconds);
-            date.setText(month + "." + day + "." + year);
+            time.setText(timeFormat.format(currentDate));
+            date.setText(dateFormat.format(currentDate));
         }
         else{
             // If network is not working attempt to get location through GPS. It is far less optimal and does not work well at some phones
