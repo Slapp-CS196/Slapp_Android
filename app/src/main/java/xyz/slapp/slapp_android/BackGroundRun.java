@@ -16,8 +16,9 @@ public class BackGroundRun extends Service implements SensorEventListener {
     public float z = 0;
     public static int slaps = 0;
     boolean slapActive = false;
-    private SensorManager sensorManager;
+    public SensorManager sensorManager;
     private Sensor sensorLinearAcc;
+    public static boolean status = false;
     public BackGroundRun() {
     }
     public static int numberOfSlaps(){
@@ -32,7 +33,8 @@ public class BackGroundRun extends Service implements SensorEventListener {
     }
     //this code allows the service to run in background
     public int onStartCommand(Intent intent, int flags, int startId){
-        return START_STICKY;
+
+            return START_NOT_STICKY;
     }
 
     @Override
@@ -63,4 +65,9 @@ public class BackGroundRun extends Service implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+    public void onDestroy(){
+        sensorManager.unregisterListener(this);
+        super.onDestroy();
+    }
+
 }

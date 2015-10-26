@@ -1,0 +1,13 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="72dp" android:layout_height="72dp"
+    android:padding="@dimen/widget_margin" android:background="#09C">
+
+    <Button android:id="@+id/appwidget_text" android:layout_width="50dp"
+        android:layout_height="50dp" android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" android:text="A"
+        android:textColor="#ffffff" android:textSize="24sp" android:textStyle="bold|italic"
+        android:layout_margin="8dp" android:contentDescription="A"
+        android:background="#09C"
+        android:onClick=""/>
+
+</RelativeLayout>

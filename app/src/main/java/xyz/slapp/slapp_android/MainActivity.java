@@ -15,8 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent i = new Intent(MainActivity.this, BackGroundRun.class);
-        startService(i);
+        //Intent i = new Intent(MainActivity.this, BackGroundRun.class);
+        //startService(i);
+        //BackGroundRun.status = true;
         slapBox = (TextView)findViewById(R.id.slaps);
         slapBox.setText("slaps" + BackGroundRun.numberOfSlaps());
     }
