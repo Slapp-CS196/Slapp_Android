@@ -75,15 +75,14 @@ public class OnOff extends AppWidgetProvider {
             watchWidget = new ComponentName(context, OnOff.class);
 
 
-            if(BackGroundRun.status){
-                BackGroundRun.status=!BackGroundRun.status;
+            if (BackGroundRun.status) {
+                BackGroundRun.status = !BackGroundRun.status;
                 initialContext.stopService(i);
-                remoteViews.setTextViewText(R.id.appwidget_text, ""+BackGroundRun.status);
-            }
-            else{
-                BackGroundRun.status=!BackGroundRun.status;
+                remoteViews.setTextViewText(R.id.appwidget_text, "" + BackGroundRun.status);
+            } else {
+                BackGroundRun.status = !BackGroundRun.status;
                 initialContext.startService(i);
-                remoteViews.setTextViewText(R.id.appwidget_text, ""+BackGroundRun.status);
+                remoteViews.setTextViewText(R.id.appwidget_text, "" + BackGroundRun.status);
             }
 
             appWidgetManager.updateAppWidget(watchWidget, remoteViews);
@@ -97,4 +96,3 @@ public class OnOff extends AppWidgetProvider {
     }
 
 }
-

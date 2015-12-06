@@ -33,13 +33,14 @@
         <receiver android:name=".OnOff" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="xyz.slapp.slapp_android.WIDGET_BUTTON"/>
+                <action android:name="xyz.slapp.slapp_android.WIDGET_BUTTON" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/on_off_info" />
         </receiver>
+
     </application>
 
 </manifest>
