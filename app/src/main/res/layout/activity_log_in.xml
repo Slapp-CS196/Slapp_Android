@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="xyz.slapp.slapp_android.LogInActivity"
+    android:background="@color/slapp_blue_accent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/log_in_etEmail"
+            android:inputType="textEmailAddress"
+            android:hint="@string/log_in_email_address_hint"
+            style="@style/SplashTheme.SplashEditText"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/log_in_etPassword"
+            android:inputType="textPassword"
+            android:hint="@string/log_in_password_hint"
+            style="@style/SplashTheme.SplashEditText"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/log_in_button"
+            style="@style/SplashTheme.SplashButton"
+            android:layout_marginTop="5dp"
+            android:onClick="onButtonClick"/>
+    </LinearLayout>
+
+</ScrollView>

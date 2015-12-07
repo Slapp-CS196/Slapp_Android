@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xyz.slapp.slapp_android" >
+    package="xyz.slapp.slapp_android">
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/ActionBarTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,9 +18,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GestureTestActivity"
-            android:label="@string/title_activity_gesture_test" >
-        </activity>
+            android:name=".SignUpActivity"
+            android:label="@string/sign_up"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/SplashTheme.ActionBar" />
+        <activity
+            android:name=".LogInActivity"
+            android:label="@string/log_in"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/SplashTheme.ActionBar" />
     </application>
 
 </manifest>

@@ -2,26 +2,26 @@
 
     <!-- Core application theme. -->
     <style name="ActionBarTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/slapp_blue</item>
-        <item name="colorPrimaryDark">@color/slapp_blue_accent</item>
+        <item name="android:colorPrimary">@color/slapp_blue</item>
+        <item name="android:colorPrimaryDark">@color/slapp_blue_accent</item>
     </style>
 
     <!-- Splash theme -->
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/slapp_blue</item>
         <item name="colorPrimaryDark">@color/slapp_blue_accent</item>
-        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:colorButtonNormal">@color/white</item>
         <item name="colorAccent">@color/white</item>
     </style>
     <style name="SplashTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/slapp_blue</item>
         <item name="colorPrimaryDark">@color/slapp_blue</item>
-        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:colorButtonNormal">@color/white</item>
         <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="SplashTheme.SplashButton" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:colorButtonNormal">@color/white</item>
         <item name="android:textColor">@color/slapp_blue</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
