@@ -45,7 +45,6 @@
             android:name=".Login"
             android:label="@string/title_activity_login" >
         </activity>
-
         <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up" >
@@ -54,6 +53,7 @@
             android:name=".AddContacts"
             android:label="@string/title_activity_add_contacts" >
         </activity>
+
     </application>
 
 </manifest>

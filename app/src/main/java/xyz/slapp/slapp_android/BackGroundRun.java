@@ -17,6 +17,14 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.Wearable;
 import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
@@ -26,9 +34,13 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class BackGroundRun extends Service implements SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class BackGroundRun extends Service implements SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+,DataApi.DataListener{
     GoogleApiClient googleClient;
+    GoogleApiClient messageApi;
     Location currentPosition;
+    private static final String wearName = "cs196slapp.slapp";
+    private long time = 0;
     public float x = 0;
     public float y = 0;
     public float z = 0;
@@ -37,7 +49,6 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     public SensorManager sensorManager;
     public static boolean status = false;
     Retrofit retrofit;
-
 
     SlappService slappService;
 
@@ -48,7 +59,13 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+        messageApi = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Wearable.API)
+                .build();
     }
+
 
 
     public BackGroundRun() {
@@ -158,4 +175,16 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
 
     }
 
+    @Override
+    public void onDataChanged(DataEventBuffer dataEventBuffer) {
+        for(DataEvent event: dataEventBuffer){
+            if(event.getType()==DataEvent.TYPE_CHANGED){
+                DataItem item = event.getDataItem();
+                if (item.getUri().getPath().compareTo("/time")==0){
+                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+                    time = dataMap.getLong(wearName);
+                }
+            }
+        }
+    }
 }
