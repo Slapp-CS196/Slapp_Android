@@ -7,4 +7,7 @@
     <string name="appwidget_text">A</string>
     <string name="add_widget">Add widget</string>
     <string name="title_activity_add_user">AddUser</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_sign_up">sign_up</string>
+    <string name="title_activity_add_contacts">AddContacts</string>
 </resources>

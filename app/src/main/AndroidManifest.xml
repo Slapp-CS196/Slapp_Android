@@ -41,6 +41,19 @@
                 android:resource="@xml/on_off_info" />
         </receiver>
 
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" >
+        </activity>
+
+        <activity
+            android:name=".SignUp"
+            android:label="@string/title_activity_sign_up" >
+        </activity>
+        <activity
+            android:name=".AddContacts"
+            android:label="@string/title_activity_add_contacts" >
+        </activity>
     </application>
 
 </manifest>

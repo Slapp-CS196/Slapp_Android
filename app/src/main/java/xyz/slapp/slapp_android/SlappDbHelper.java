@@ -1,5 +1,4 @@
 package xyz.slapp.slapp_android;
-
 /**
  * Created by shreyas on 15-11-15.
  */

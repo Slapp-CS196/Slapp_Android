@@ -12,7 +12,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -63,6 +62,8 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                 .baseUrl("http://api.slapp.xyz")
                 .build();
         slappService = retrofit.create(SlappService.class);
+        googleApiBuilder();
+        googleClient.connect();
         //sensor manager starter
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         Sensor sensorLinearAcc = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
@@ -70,7 +71,6 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     }
     //this code allows the service to run in background
     public int onStartCommand(Intent intent, int flags, int startId){
-
         return START_NOT_STICKY;
     }
 
@@ -86,12 +86,12 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
         y = (Math.abs(y) > Math.abs(event.values[1]))?y:event.values[1];
         z = (Math.abs(z) > Math.abs(event.values[2]))?z:event.values[2];
 
+        //Y
         if (event.values[2] > 9.0 && event.values[0]<5) {
             if (!slapActive) {
                 googleApiBuilder();
                 slaps++;
                 slapActive = true;
-                Toast.makeText(this, "Slapp!", Toast.LENGTH_SHORT).show();
                 sendTestSlapp();
             }
         } else if (slapActive) {
@@ -112,13 +112,20 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
 
     public void sendTestSlapp() {
         String userId = "JOHN CENA";
+        googleClient.connect();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.slapp.xyz")
+                .build();
+        slappService = retrofit.create(SlappService.class);
+
         Call<ResponseBody> call = slappService.sendSlapp(userId, System.currentTimeMillis(), currentPosition.getLatitude(), currentPosition.getLongitude(), (int)currentPosition.getAccuracy());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                 try {
                     if (response.body() != null) {
-                        Log.w("Slapp", response.body().string());
+                        Log.w("Slapps", response.body().string());
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -130,9 +137,9 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                 Log.w("Slapp", t.getMessage());
             }
         });
-        SlappDbHelper slappDbHelper = new SlappDbHelper(BackGroundRun.this);
-        slappDbHelper.addSlapp(userId, System.currentTimeMillis(), Math.random() * 100 - 50, Math.random() * 100 - 50, 50);
-        Log.w("Slapp", slappDbHelper.fetchAllSubmissions().getCount() + " Slapps in local DB");
+//        SlappDbHelper slappDbHelper = new SlappDbHelper(BackGroundRun.this);
+//        slappDbHelper.addSlapp(userId, System.currentTimeMillis(), Math.random() * 100 - 50, Math.random() * 100 - 50, 50);
+//        Log.w("Slapp", slappDbHelper.fetchAllSubmissions().getCount() + " Slapps in local DB");
     }
 
 
@@ -150,4 +157,5 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     public void onConnectionSuspended(int i) {
 
     }
+
 }
