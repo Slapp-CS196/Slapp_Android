@@ -6,6 +6,9 @@ public class Global {
     private static Global mInstance = null;
 
     public static final String API_BASE_URL = "https://api.slapp.xyz";
+    public static final  String SHARED_PREF_KEY = "xyz.slapp.android.SHARED_PREF";
+    public static final  String SHARED_PREF_EMAIL_KEY = "xyz.slapp.android.SHARED_PREF_EMAIL";
+    public static final  String SHARED_PREF_LOGGED_IN_KEY = "xyz.slapp.android.SHARED_PREF_LOGGED_IN";
 
     private Retrofit retrofit;
     private SlappService slappService;

@@ -15,4 +15,10 @@ public interface SlappService {
 
     @GET("/api/newSlapp")
     Call<ResponseBody> sendSlapp(@Query("email") String emailAddress, @Query("time") long time, @Query("latitude") double latitude, @Query("longitude") double longitude, @Query("radius") int radius);
+
+    @GET("/api/newProfile")
+    Call<ResponseBody> addProfile(@Query("email") String emailAddress, @Query("prof_name") String profileName);
+
+    @GET("/api/newLink")
+    Call<ResponseBody> addLink(@Query("prof_id") int profileId, @Query("link_type") String linkType, @Query("link_data") String linkData);
 }
