@@ -109,7 +109,7 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                 googleApiBuilder();
                 slaps++;
                 slapActive = true;
-                sendTestSlapp();
+                sendTestSlapp(System.currentTimeMillis());
             }
         } else if (slapActive) {
             slapActive = false;
@@ -127,15 +127,15 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
         super.onDestroy();
     }
 
-    public void sendTestSlapp() {
+    public void sendTestSlapp(long time) {
         String userId = "JOHN CENA";
         googleClient.connect();
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.slapp.xyz")
+                .baseUrl("https://api.slapp.xyz")
                 .build();
         slappService = retrofit.create(SlappService.class);
 
-        Call<ResponseBody> call = slappService.sendSlapp(userId, System.currentTimeMillis(), currentPosition.getLatitude(), currentPosition.getLongitude(), (int)currentPosition.getAccuracy());
+        Call<ResponseBody> call = slappService.sendSlapp(userId, time, 10.0, 10.0, 1);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
@@ -183,6 +183,9 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                 if (item.getUri().getPath().compareTo("/time")==0){
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
                     time = dataMap.getLong(wearName);
+                    sendTestSlapp(time);
+                    System.out.println("this is the time we got: " + time);
+                    slaps++;
                 }
             }
         }
