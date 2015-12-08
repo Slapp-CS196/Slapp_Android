@@ -1,6 +1,8 @@
 package xyz.slapp.slapp_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,6 +55,10 @@ public class LogInActivity extends AppCompatActivity {
                     if (response.body() != null && response.body().string().equals("Login success")) {
                         Global.getInstance().setEmailAddress(emailAddress);
                         Global.getInstance().setLoggedIn(true);
+                        SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(Global.SHARED_PREF_KEY, Context.MODE_PRIVATE).edit();
+                        editor.putString(Global.SHARED_PREF_EMAIL_KEY, emailAddress);
+                        editor.putBoolean(Global.SHARED_PREF_LOGGED_IN_KEY, true);
+                        editor.commit();
                         //startActivity(new Intent(LogInActivity.this, HomeActivity.class));
                         Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     } else if (response.body().string().equals("Wrong password")) {
