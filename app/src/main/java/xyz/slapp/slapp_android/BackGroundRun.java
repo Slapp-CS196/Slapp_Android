@@ -12,6 +12,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -125,6 +126,10 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     public void onDestroy(){
         sensorManager.unregisterListener(this);
         super.onDestroy();
+    }
+
+    public static void getSlapp(String time){
+        Toast.makeText(getApplicationContext(), "Time received: " + time, Toast.LENGTH_SHORT).show()
     }
 
     public void sendTestSlapp(long time) {
