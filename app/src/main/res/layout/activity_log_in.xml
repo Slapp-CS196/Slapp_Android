@@ -20,21 +20,21 @@
             android:id="@+id/log_in_etEmail"
             android:inputType="textEmailAddress"
             android:hint="@string/log_in_email_address_hint"
-            style="@style/SplashTheme.SplashEditText"/>
+            style="@style/SplashTheme.EditText"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/log_in_etPassword"
             android:inputType="textPassword"
             android:hint="@string/log_in_password_hint"
-            style="@style/SplashTheme.SplashEditText"/>
+            style="@style/SplashTheme.EditText"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="@string/log_in_button"
             style="@style/SplashTheme.Button"
             android:layout_marginTop="5dp"
-            android:onClick="onButtonClick"/>
+            android:onClick="logInOnButtonClick"/>
     </LinearLayout>
 
 </ScrollView>

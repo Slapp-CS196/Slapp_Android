@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onButtonClick(View v) {
+    public void mainOnButtonClick(View v) {
         if (v.getId() == R.id.main_btnSignUp) {
             startActivity(new Intent(this, SignUpActivity.class));
         } else if (v.getId() == R.id.main_btnLogIn) {

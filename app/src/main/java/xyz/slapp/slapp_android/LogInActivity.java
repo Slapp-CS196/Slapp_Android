@@ -30,11 +30,11 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
         etEmailAddress = (EditText)findViewById(R.id.log_in_etEmail);
-        etEmailAddress.setText(Global.getInstance().getEmailAddress());
+        etEmailAddress.setText(getSharedPreferences(Global.SHARED_PREF_KEY,Context.MODE_PRIVATE).getString(Global.SHARED_PREF_EMAIL_KEY,""));
         etPassword = (EditText)findViewById(R.id.log_in_etPassword);
     }
 
-    public void onButtonClick(View v) {
+    public void logInOnButtonClick(View v) {
         if (etEmailAddress.getText().toString().isEmpty()) {
             Toast.makeText(this, "Enter Email Address", Toast.LENGTH_SHORT).show();
             return;
@@ -53,16 +53,13 @@ public class LogInActivity extends AppCompatActivity {
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                 try {
                     if (response.body() != null && response.body().string().equals("Login success")) {
-                        Global.getInstance().setEmailAddress(emailAddress);
-                        Global.getInstance().setLoggedIn(true);
                         SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(Global.SHARED_PREF_KEY, Context.MODE_PRIVATE).edit();
                         editor.putString(Global.SHARED_PREF_EMAIL_KEY, emailAddress);
                         editor.putBoolean(Global.SHARED_PREF_LOGGED_IN_KEY, true);
                         editor.commit();
                         startActivity(new Intent(LogInActivity.this, HomeActivity.class));
-                        //Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                         finish();
-                    } else if (response.body().string().equals("Wrong password")) {
+                    } else if (response.body() != null && response.body().string().equals("Wrong password")) {
                         Toast.makeText(getApplicationContext(), "Error: Invalid Email Address or Password", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Error: Please try again", Toast.LENGTH_SHORT).show();
@@ -75,7 +72,7 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "Network Error: Please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }

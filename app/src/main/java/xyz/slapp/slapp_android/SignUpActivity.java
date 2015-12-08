@@ -1,6 +1,8 @@
 package xyz.slapp.slapp_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         etPasswordConfirm = (EditText)findViewById(R.id.sign_up_etPasswordConfirm);
     }
 
-    public void onButtonClick(View v) {
+    public void signUpOnButtonClick(View v) {
         if (etFirstName.getText().toString().isEmpty()) {
             Toast.makeText(this, "Enter First Name", Toast.LENGTH_SHORT).show();
             return;
@@ -76,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                 try {
                     if (response.body() != null && response.body().string().contains("added")) {
-                        Global.getInstance().setEmailAddress(emailAddress);
+                        getApplicationContext().getSharedPreferences(Global.SHARED_PREF_KEY, Context.MODE_PRIVATE).edit().putString(Global.SHARED_PREF_EMAIL_KEY, emailAddress).commit();
                         startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Server Error: Please try again later", Toast.LENGTH_SHORT).show();
