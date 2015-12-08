@@ -39,7 +39,7 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     GoogleApiClient googleClient;
     GoogleApiClient messageApi;
     Location currentPosition;
-    private static final String wearName = "cs196slapp.slapp";
+    private static final String wearName = "slapp_time";
     private long time = 0;
     public float x = 0;
     public float y = 0;
@@ -187,6 +187,7 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                     System.out.println("this is the time we got: " + time);
                     slaps++;
                 }
+                System.out.println("what");
             }
         }
     }
