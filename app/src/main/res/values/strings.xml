@@ -17,6 +17,10 @@
     <string name="log_in_password_hint">Password</string>
     <string name="log_in_button">LOG IN</string>
 
+    <string name="home">Slapp</string>
+    <string name="home_toggle_start">Start Service</string>
+    <string name="home_toggle_stop">Stop Service</string>
+
     <string name="action_settings">Settings</string>
 
 

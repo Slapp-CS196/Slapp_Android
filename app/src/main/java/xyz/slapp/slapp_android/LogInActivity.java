@@ -59,8 +59,9 @@ public class LogInActivity extends AppCompatActivity {
                         editor.putString(Global.SHARED_PREF_EMAIL_KEY, emailAddress);
                         editor.putBoolean(Global.SHARED_PREF_LOGGED_IN_KEY, true);
                         editor.commit();
-                        //startActivity(new Intent(LogInActivity.this, HomeActivity.class));
-                        Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LogInActivity.this, HomeActivity.class));
+                        //Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else if (response.body().string().equals("Wrong password")) {
                         Toast.makeText(getApplicationContext(), "Error: Invalid Email Address or Password", Toast.LENGTH_SHORT).show();
                     } else {

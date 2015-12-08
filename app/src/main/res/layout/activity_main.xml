@@ -27,7 +27,7 @@
             android:layout_weight="50"
             android:layout_marginBottom="6dp"
             android:text="@string/main_sign_up"
-            style="@style/SplashTheme.SplashButton"
+            style="@style/SplashTheme.Button"
             android:onClick="onButtonClick"
             android:id="@+id/main_btnSignUp"/>
         <Button
@@ -36,7 +36,7 @@
             android:layout_weight="50"
             android:layout_marginTop="6dp"
             android:text="@string/main_log_in"
-            style="@style/SplashTheme.SplashButton"
+            style="@style/SplashTheme.Button"
             android:onClick="onButtonClick"
             android:id="@+id/main_btnLogIn"/>
     </LinearLayout>

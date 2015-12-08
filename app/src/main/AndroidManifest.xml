@@ -27,6 +27,10 @@
             android:label="@string/log_in"
             android:parentActivityName=".MainActivity"
             android:theme="@style/SplashTheme.ActionBar" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/home"
+            android:theme="@style/HomeTheme"/>
     </application>
 
 </manifest>
