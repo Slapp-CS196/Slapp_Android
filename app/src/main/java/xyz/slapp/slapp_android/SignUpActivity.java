@@ -80,12 +80,14 @@ public class SignUpActivity extends AppCompatActivity {
                     if (response.body() != null && response.body().string().contains("added")) {
                         getApplicationContext().getSharedPreferences(Global.SHARED_PREF_KEY, Context.MODE_PRIVATE).edit().putString(Global.SHARED_PREF_EMAIL_KEY, emailAddress).commit();
                         startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Server Error: Please try again later", Toast.LENGTH_SHORT).show();
                         Log.e("Slapp", response.message());
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Server Error: Please try again later", Toast.LENGTH_SHORT).show();
+                    Log.e("Slapp", response.message());
                 }
             }
             @Override

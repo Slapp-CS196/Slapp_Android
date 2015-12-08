@@ -25,11 +25,16 @@ public interface SlappService {
     @GET("/api/getActiveProf")
     Call<ResponseBody> getActiveProfile(@Query("email") String emailAddress);
 
+    @GET("/api/getActiveProfName")
+    Call<ResponseBody> getActiveProfileName(@Query("email") String emailAddress);
+
     @GET("/api/setActiveProf")
     Call<ResponseBody> setActiveProfile(@Query("email") String emailAddress, @Query("prof_id") int profileId);
 
     @GET("/api/getUserProfs")
     Call<ResponseBody> getUserProfiles(@Query("email") String emailAddress);
 
+    @GET("/api/getProfName")
+    Call<ResponseBody> getProfileName(@Query("prof_id") int profileId);
 
 }

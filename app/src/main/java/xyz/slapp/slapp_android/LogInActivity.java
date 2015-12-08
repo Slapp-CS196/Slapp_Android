@@ -57,7 +57,9 @@ public class LogInActivity extends AppCompatActivity {
                         editor.putString(Global.SHARED_PREF_EMAIL_KEY, emailAddress);
                         editor.putBoolean(Global.SHARED_PREF_LOGGED_IN_KEY, true);
                         editor.commit();
-                        startActivity(new Intent(LogInActivity.this, HomeActivity.class));
+                        Intent i = new Intent(LogInActivity.this, HomeActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
                         finish();
                     } else if (response.body() != null && response.body().string().equals("Wrong password")) {
                         Toast.makeText(getApplicationContext(), "Error: Invalid Email Address or Password", Toast.LENGTH_SHORT).show();
@@ -66,7 +68,8 @@ public class LogInActivity extends AppCompatActivity {
                         Log.e("Slapp", response.body().string());
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Server Error: Please try again later", Toast.LENGTH_SHORT).show();
+                    Log.e("Slapp", response.message());
                 }
             }
 

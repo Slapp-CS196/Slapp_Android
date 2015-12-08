@@ -35,6 +35,10 @@
             android:name=".AddProfileActivity"
             android:label="@string/add_profile"
             android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/profile"
+            android:theme="@style/HomeTheme"/>
     </application>
 
 </manifest>

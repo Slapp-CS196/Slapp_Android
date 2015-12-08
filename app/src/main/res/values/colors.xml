@@ -3,5 +3,6 @@
     <color name="slapp_blue">#69B4D0</color>
     <color name="slapp_blue_accent">#5A9BB3</color>
     <color name="white">#FFF</color>
+    <color name="black">#000</color>
     <color name="light_gray">#EEE</color>
 </resources>
