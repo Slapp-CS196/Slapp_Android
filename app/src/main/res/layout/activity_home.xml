@@ -18,7 +18,8 @@
             android:text="@string/home_toggle_start"
             style="@style/HomeTheme.Button"
             android:id="@+id/home_btnToggleService"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:onClick="homeOnButtonClick"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

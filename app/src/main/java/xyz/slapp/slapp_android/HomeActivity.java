@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private String emailAddress;
     private TextView tvActiveProfile;
     private ListView lvProfiles;
+    private Button btnToggleService;
     private ArrayList<Integer> profileIds;
     private ArrayList<String> profileNames;
 
@@ -41,9 +43,10 @@ public class HomeActivity extends AppCompatActivity {
 
         tvActiveProfile = (TextView)findViewById(R.id.home_tvActiveProfile);
         lvProfiles = (ListView)findViewById(R.id.home_lvProfiles);
+        btnToggleService = (Button)findViewById(R.id.home_btnToggleService);
 
-        profileIds = new ArrayList<Integer>(5);
-        profileNames = new ArrayList<String>(5);
+        profileIds = new ArrayList<>(5);
+        profileNames = new ArrayList<>(5);
 
         emailAddress = getSharedPreferences(Global.SHARED_PREF_KEY, Context.MODE_PRIVATE).getString(Global.SHARED_PREF_EMAIL_KEY,"");
 
@@ -51,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
         getProfiles();
 
-        lvProfiles.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_profile, R.id.list_item_profile_textview, profileNames));
+        lvProfiles.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_item_profile, R.id.list_item_profile_textview, profileNames));
         lvProfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -99,7 +102,6 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     if (response.body() != null) {
                         String responseString = response.body().string();
-                        Log.w("Slapp", responseString);
                         while (responseString.contains(",")) {
                             profileIds.add(Integer.parseInt(responseString.substring(0,responseString.indexOf(","))));
                             responseString = responseString.substring(responseString.indexOf(",")+1);
@@ -107,14 +109,12 @@ public class HomeActivity extends AppCompatActivity {
                         profileIds.add(Integer.parseInt(responseString));
                         for (int profileId : profileIds) {
                             Call<ResponseBody> getProfileNameCall = Global.getInstance().getSlappService().getProfileName(profileId);
-                            Log.w("Slapp","Getting profile name for id " + profileId);
                             getProfileNameCall.enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                                     try {
                                         if (response.body() != null) {
                                             profileNames.add(response.body().string());
-                                            Log.w("Slapp", "Adding profile " + profileNames.get(profileNames.size() - 1));
                                             ((ArrayAdapter)lvProfiles.getAdapter()).notifyDataSetChanged();
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
@@ -150,6 +150,18 @@ public class HomeActivity extends AppCompatActivity {
     public void homeOnButtonClick(View v) {
         if (v.getId() == R.id.home_btnAddProfile) {
             startActivity(new Intent(this, AddProfileActivity.class));
+        } else if (v.getId() == R.id.home_btnToggleService) {
+            if (!Global.getInstance().getServiceRunning()) {
+                startService(new Intent(HomeActivity.this, BackgroundService.class));
+                btnToggleService.setText(getString(R.string.home_toggle_stop));
+                Global.getInstance().setServiceRunning(true);
+                Log.w("Slapp","Service started");
+            } else {
+                stopService(new Intent(HomeActivity.this, BackgroundService.class));
+                btnToggleService.setText(getString(R.string.home_toggle_start));
+                Global.getInstance().setServiceRunning(false);
+                Log.w("Slapp", "Service stopped");
+            }
         }
     }
 
@@ -170,6 +182,9 @@ public class HomeActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_log_out) {
             getApplicationContext().getSharedPreferences(Global.SHARED_PREF_KEY, Context.MODE_PRIVATE).edit().putBoolean(Global.SHARED_PREF_LOGGED_IN_KEY, false).commit();
+            stopService(new Intent(HomeActivity.this, BackgroundService.class));
+            Global.getInstance().setServiceRunning(false);
+            Log.w("Slapp", "Service stopped");
             finish();
         }
 
@@ -195,7 +210,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onRestart() {
-        super.onResume();
+        super.onRestart();
         getProfiles();
     }
 }
