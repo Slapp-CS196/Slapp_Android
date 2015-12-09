@@ -1,5 +1,17 @@
 package xyz.slapp.slapp_android;
 
+import android.content.Context;
+import android.location.Location;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.squareup.okhttp.ResponseBody;
+
+import java.io.IOException;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
 import retrofit.Retrofit;
 
 public class Global {
@@ -12,16 +24,14 @@ public class Global {
 
     private Retrofit retrofit;
     private SlappService slappService;
-    private String emailAddress;
-    private boolean loggedIn;
+    private boolean serviceRunning;
 
     private Global() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .build();
         slappService = retrofit.create(SlappService.class);
-        emailAddress = "";
-        loggedIn = false;
+        serviceRunning = false;
     }
 
     public static Global getInstance() {
@@ -33,19 +43,11 @@ public class Global {
         return slappService;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public boolean getServiceRunning() {
+        return serviceRunning;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
+    public void setServiceRunning(boolean serviceRunning) {
+        this.serviceRunning = serviceRunning;
     }
 }

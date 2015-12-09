@@ -21,4 +21,20 @@ public interface SlappService {
 
     @GET("/api/newLink")
     Call<ResponseBody> addLink(@Query("prof_id") int profileId, @Query("link_type") String linkType, @Query("link_data") String linkData);
+
+    @GET("/api/getActiveProf")
+    Call<ResponseBody> getActiveProfile(@Query("email") String emailAddress);
+
+    @GET("/api/getActiveProfName")
+    Call<ResponseBody> getActiveProfileName(@Query("email") String emailAddress);
+
+    @GET("/api/setActiveProf")
+    Call<ResponseBody> setActiveProfile(@Query("email") String emailAddress, @Query("prof_id") int profileId);
+
+    @GET("/api/getUserProfs")
+    Call<ResponseBody> getUserProfiles(@Query("email") String emailAddress);
+
+    @GET("/api/getProfName")
+    Call<ResponseBody> getProfileName(@Query("prof_id") int profileId);
+
 }

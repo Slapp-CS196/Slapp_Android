@@ -20,7 +20,7 @@
             android:id="@+id/sign_up_etFirstName"
             android:inputType="textPersonName"
             android:hint="@string/sign_up_first_name_hint"
-            style="@style/SplashTheme.SplashEditText"
+            style="@style/SplashTheme.EditText"
             android:layout_marginTop="0dp"/>
         <EditText
             android:layout_width="match_parent"
@@ -28,35 +28,35 @@
             android:id="@+id/sign_up_etLastName"
             android:inputType="textPersonName"
             android:hint="@string/sign_up_last_name_hint"
-            style="@style/SplashTheme.SplashEditText" />
+            style="@style/SplashTheme.EditText" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_etEmail"
             android:inputType="textEmailAddress"
             android:hint="@string/sign_up_email_address_hint"
-            style="@style/SplashTheme.SplashEditText"/>
+            style="@style/SplashTheme.EditText"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_etPassword"
             android:inputType="textPassword"
             android:hint="@string/sign_up_password_hint"
-            style="@style/SplashTheme.SplashEditText"/>
+            style="@style/SplashTheme.EditText"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_etPasswordConfirm"
             android:inputType="textPassword"
             android:hint="@string/sign_up_password_confirm_hint"
-            style="@style/SplashTheme.SplashEditText"/>
+            style="@style/SplashTheme.EditText"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="@string/sign_up_button"
-            style="@style/SplashTheme.SplashButton"
+            style="@style/SplashTheme.Button"
             android:layout_marginTop="5dp"
-            android:onClick="onButtonClick"/>
+            android:onClick="signUpOnButtonClick"/>
     </LinearLayout>
 
 </ScrollView>
