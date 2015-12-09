@@ -29,14 +29,6 @@
             android:enabled="true"
             android:exported="false" >
         </service>
-        <service
-            android:name=".ListenerService"
-            android:enabled="true"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
-            </intent-filter>
-        </service>
 
         <receiver android:name=".OnOff" >
             <intent-filter>
@@ -61,6 +53,16 @@
             android:name=".AddContacts"
             android:label="@string/title_activity_add_contacts" >
         </activity>
+
+        <service
+            android:name=".DataLayerListenerService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.google.android.gm.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package xyz.slapp.slapp_android;
 
 import android.content.Intent;
+import android.location.GpsStatus;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,9 +24,12 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, BackGroundRun.class);
         startService(i);
         BackGroundRun.status = true;
+
+        Intent j = new Intent(MainActivity.this, DataLayerListenerService.class);
+        startService(j);
+
         slapBox = (TextView)findViewById(R.id.slaps);
         slapBox.setText("slaps" + BackGroundRun.numberOfSlaps());
-
     }
 
     @Override

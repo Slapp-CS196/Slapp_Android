@@ -12,6 +12,14 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/slaps"/>
+
+    <TextView
+        android:id="@+id/listener_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slaps"
+        />
+
     <Button
         android:layout_width="80dp"
         android:layout_height="30dp"

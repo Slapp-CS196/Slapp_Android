@@ -35,12 +35,13 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class BackGroundRun extends Service implements SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
-,DataApi.DataListener{
+public class BackGroundRun extends Service implements SensorEventListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, DataApi.DataListener
+{
     GoogleApiClient googleClient;
-    GoogleApiClient messageApi;
+    GoogleApiClient client;
     Location currentPosition;
-    private static final String wearName = "slapp_time";
+    private static final String TIME_KEY = "slapp_time";
     private long time = 0;
     public float x = 0;
     public float y = 0;
@@ -60,17 +61,13 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        messageApi = new GoogleApiClient.Builder(this)
+        client = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .addApi(Wearable.API)
                 .build();
     }
 
-
-
-    public BackGroundRun() {
-    }
     public static int numberOfSlaps(){
         return slaps;
     }
@@ -89,6 +86,7 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     }
     //this code allows the service to run in background
     public int onStartCommand(Intent intent, int flags, int startId){
+        client.connect();
         return START_NOT_STICKY;
     }
 
@@ -125,11 +123,13 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     }
     public void onDestroy(){
         sensorManager.unregisterListener(this);
+        Wearable.DataApi.removeListener(client,this);
         super.onDestroy();
     }
 
-    public static void getSlapp(String time){
-        Toast.makeText(getApplicationContext(), "Time received: " + time, Toast.LENGTH_SHORT).show()
+    public static void getSlapp(long time, Context c){
+        Toast.makeText(c, "Time received: " + time, Toast.LENGTH_SHORT).show();
+        System.out.println("Time received: " + time);
     }
 
     public void sendTestSlapp(long time) {
@@ -173,6 +173,7 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
     @Override
     public void onConnected(Bundle bundle) {
         currentPosition = LocationServices.FusedLocationApi.getLastLocation(googleClient);
+        Wearable.DataApi.addListener(client, this);
     }
 
     @Override
@@ -182,13 +183,14 @@ public class BackGroundRun extends Service implements SensorEventListener, Googl
 
     @Override
     public void onDataChanged(DataEventBuffer dataEventBuffer) {
+        System.out.println("onDataChanged");
         for(DataEvent event: dataEventBuffer){
             if(event.getType()==DataEvent.TYPE_CHANGED){
                 DataItem item = event.getDataItem();
                 if (item.getUri().getPath().compareTo("/time")==0){
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                    time = dataMap.getLong(wearName);
-                    sendTestSlapp(time);
+                    time = dataMap.getLong(TIME_KEY);
+                    getSlapp(time, getApplicationContext());
                     System.out.println("this is the time we got: " + time);
                     slaps++;
                 }
